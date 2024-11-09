@@ -113,3 +113,6 @@ exec_always --no-startup-id picom --daemon
 
 # Render wallpaper with feh. Reload on every change.
 exec_always --no-startup-id feh --bg-fill --no-fehbg "${HOME}/.config/i3/wall.png"
+
+# Render taskbar with polybar. Manually reserve space.
+gaps top 48px
