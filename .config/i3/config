@@ -1,0 +1,115 @@
+# i3 config file (v4)
+#
+# Please see https://i3wm.org/docs/userguide.html for a complete reference!
+
+############################################## Basics ##############################################
+
+# Add gaps for better distinguishing windows.
+gaps inner 10px
+gaps outer 10px
+
+# No borders. Keep it simple.
+default_border none
+default_floating_border none
+
+############################################### Keys ###############################################
+
+# Set two mod keys for wider range of keymaps.
+set $alt Mod1
+set $mod Mod4
+
+# The lowest level of actions use the most extensive keys.
+bindsym $mod+$alt+e exec i3-msg exit
+bindsym $mod+$alt+r restart
+
+# Start default terminal.
+bindsym $mod+Return exec --no-startup-id i3-sensible-terminal
+
+# Define names for default workspaces. No fancy name needed.
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+# Switch to workspace.
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+# Move focused container to workspace.
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+
+# Launch applications with dmenu. Rofi is bloated.
+bindsym $mod+space exec --no-startup-id dmenu_run -b
+
+# Change focus (vim-like keybinds).
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+# Move focused window.
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# Set the position where new windows spawn.
+bindsym $mod+Control+h split h
+bindsym $mod+Control+v split v
+
+# Toggle floating. (Used more often.)
+bindsym $mod+f floating toggle
+# Toggle fullscreen. (Used less, hence loses the "f" key.)
+bindsym $mod+g fullscreen toggle
+
+# Kill focused window. "x" stands for the close button.
+bindsym $mod+x kill
+
+# Use Mouse+$mod to drag floating windows to their wanted position.
+floating_modifier $mod
+
+# Use pactl to adjust volume in PulseAudio.
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10%
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
+
+############################################## Modes ###############################################
+
+mode "resize" {
+	# Map keys.
+	bindsym h resize shrink width 20 px or 20 ppt
+	bindsym j resize grow height 20 px or 20 ppt
+	bindsym k resize shrink height 20 px or 20 ppt
+	bindsym l resize grow width 20 px or 20 ppt
+
+	# Return to normal mode.
+	bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+############################################# Startups #############################################
+
+# Use picom as compositor.
+exec_always --no-startup-id picom --daemon
+
+# Render wallpaper with feh. Reload on every change.
+exec_always --no-startup-id feh --bg-fill --no-fehbg "${HOME}/.config/i3/wall.png"
