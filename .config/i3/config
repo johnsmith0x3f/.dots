@@ -5,8 +5,8 @@
 ############################################## Basics ##############################################
 
 # Add gaps for better distinguishing windows.
-gaps inner 10px
-gaps outer 10px
+gaps inner 8px
+gaps outer 8px
 
 # No borders. Keep it simple.
 default_border none
